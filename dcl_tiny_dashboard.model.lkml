@@ -8,9 +8,21 @@ include: "*.dashboard"
 
 explore: distribution_centers {}
 
-explore: web_events {}
+explore: web_events {
+  join: users {
+    sql_on: ${users.id} = ${web_events.user_id};;
+    type: left_outer
+    relationship: many_to_one
+  }
+}
 
-explore: inventory_items {}
+explore: inventory_items {
+  join: distribution_centers {
+    sql_on: ${distribution_centers.id} = ${inventory_items.product_distribution_center_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
+}
 
 explore: order_items {
   join: users {
@@ -31,9 +43,11 @@ explore: order_items {
 }
 
   explore: products {
-#  join: inventory_items {
-#    sql_on:  ;;
-#  }
+  join: inventory_items {
+    sql_on: ${inventory_items.product_id} = ${products.id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
 }
 
   explore: users {}
