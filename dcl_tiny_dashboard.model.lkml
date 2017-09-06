@@ -30,8 +30,10 @@ explore: order_items {
   }
 }
 
-explore: products {
+  explore: products {
 #  join: inventory_items {
 #    sql_on:  ;;
 #  }
 }
+
+  explore: users {}
