@@ -6,7 +6,9 @@ include: "*.view"
 # include all the dashboards
 include: "*.dashboard"
 
-explore: distribution_centers {}
+explore: distribution_centers {
+  hidden: yes
+}
 
 explore: web_events {
   join: users {
@@ -14,6 +16,7 @@ explore: web_events {
     type: left_outer
     relationship: many_to_one
   }
+  hidden: yes
 }
 
 explore: inventory_items {
@@ -22,6 +25,7 @@ explore: inventory_items {
     type: left_outer
     relationship: many_to_one
   }
+  hidden: yes
 }
 
 explore: order_items {
@@ -40,6 +44,7 @@ explore: order_items {
     type: left_outer
     relationship: many_to_one
   }
+  hidden: yes
 }
 
   explore: products {
@@ -48,6 +53,9 @@ explore: order_items {
     type: left_outer
     relationship: many_to_one
   }
+  hidden: yes
 }
 
-  explore: users {}
+  explore: users {
+    hidden: yes
+  }
