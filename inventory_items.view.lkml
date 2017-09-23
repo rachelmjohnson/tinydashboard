@@ -67,4 +67,19 @@ view: inventory_items {
     type: count
     drill_fields: [id, product_name, products.name, products.id, order_items.count]
   }
+
+  measure: category_count_2 {
+    type: string
+    case: {
+      when: {
+        sql: ${inventory_items.count} >= 10 ;;
+        label: "A"
+      }
+      when: {
+        sql: ${inventory_items.count} < 9 ;;
+        label: "B"
+      }
+    }
+  }
+
 }
