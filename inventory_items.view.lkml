@@ -22,6 +22,8 @@ view: inventory_items {
     sql: ${TABLE}.product_brand ;;
   }
 
+#test
+
   dimension: product_category {
     type: string
     sql: ${TABLE}.product_category ;;
@@ -66,20 +68,6 @@ view: inventory_items {
   measure: count {
     type: count
     drill_fields: [id, product_name, products.name, products.id, order_items.count]
-  }
-
-  measure: category_count_2 {
-    type: string
-    case: {
-      when: {
-        sql: ${inventory_items.count} >= 10 ;;
-        label: "A"
-      }
-      when: {
-        sql: ${inventory_items.count} < 9 ;;
-        label: "B"
-      }
-    }
   }
 
 }

@@ -104,4 +104,11 @@ view: users {
     type: count
     drill_fields: [id, last_name, first_name, events.count, order_items.count]
   }
+
+  measure: avg_age {
+    type: average
+    sql: ${TABLE}.age ;;
+  }
+
+
 }
