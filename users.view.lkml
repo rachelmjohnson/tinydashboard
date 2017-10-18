@@ -19,6 +19,15 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: dynamic_age_tier {
+    type: number
+    sql:round(${TABLE}.age / {% parameter age_tier_bucket_years %}, 0) * {% parameter age_tier_bucket_years %};;
+  }
+
+  parameter: age_tier_bucket_years {
+    type: number
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
