@@ -63,7 +63,14 @@ view: order_items {
   measure: total_revenue {
     type: sum
     sql: ${TABLE}.sale_price ;;
-    value_format_name: usd
+    value_format: "$#,##0.00;($#,##0.00)"
+    #value_format_name: usd
+  }
+
+  measure: total_revenue_neg {
+    type: number
+    sql: ${total_revenue}*-5 ;;
+    value_format: "$#,##0.00;($#,##0.00)"
   }
 
   measure: order_count {
