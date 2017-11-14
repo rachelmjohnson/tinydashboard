@@ -67,15 +67,16 @@ view: order_items {
     #value_format_name: usd
   }
 
-  measure: total_revenue_neg {
-    type: number
-    sql: ${total_revenue}*-5 ;;
-    value_format: "$#,##0.00;($#,##0.00)"
-  }
+#   measure: total_revenue_neg {
+#     type: number
+#     sql: ${total_revenue}*-5 ;;
+#     value_format: "$#,##0.00;($#,##0.00)"
+#  }
 
   measure: order_count {
     type: count_distinct
     sql: ${TABLE}.order_id ;;
+    #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
   }
 
   # ----- Sets of fields for drilling ------

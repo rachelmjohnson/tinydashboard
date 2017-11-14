@@ -27,6 +27,7 @@ view: inventory_items {
   dimension: product_category {
     type: string
     sql: ${TABLE}.product_category ;;
+    drill_fields: [order_items.id]
   }
 
   dimension: product_department {

@@ -96,8 +96,21 @@ view: users {
 
   dimension: state {
     type: string
+    label: "State Name"
     sql: ${TABLE}.state ;;
     map_layer_name: us_states
+    #suggestions: ["Florida","Connecticut"]
+  }
+
+  measure: percentile_test {
+    type: percentile
+    percentile: 70
+    sql: ${TABLE}.age ;;
+  }
+
+  measure: percentile_filter {
+    type: yesno
+    sql: ${age} > ${percentile_test};;
   }
 
   dimension: traffic_source {
