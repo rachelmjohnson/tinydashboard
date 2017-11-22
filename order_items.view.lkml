@@ -60,6 +60,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: average {
+    type: average
+    sql: ${TABLE}.sale_price ;;
+  }
+
   measure: total_revenue {
     type: sum
     sql: ${TABLE}.sale_price ;;

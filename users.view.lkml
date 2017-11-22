@@ -39,6 +39,31 @@ view: users {
     sql: ${TABLE}.country ;;
   }
 
+  dimension: west {
+    case: {
+      when: {
+        sql: ${state} = 'California' ;;
+        label: "West"
+      }
+      else: " "
+    }
+  }
+
+  dimension: east {
+    case: {
+      when: {
+        sql: ${state} = 'New York';;
+        label: "East"
+      }
+      else: " "
+    }
+  }
+
+  dimension: region {
+    type: string
+    sql: concat(${west},${east}) ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -116,6 +141,11 @@ view: users {
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  measure: count_facebook {
+    type: sum
+    sql: case when ${traffic_source} = 'Facebook' then 1 else 0 end ;;
   }
 
   dimension: zip {
