@@ -37,6 +37,7 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+    #value_format: "\C\A\D$#,##0.0"
   }
 
   dimension: shipped_at {
@@ -47,6 +48,11 @@ view: order_items {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    link: {
+      label: "test"
+      url: "/dashboards/968"
+
+    }
   }
 
   dimension: user_id {
@@ -58,6 +64,33 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  parameter: item_to_add_up {
+    type: unquoted
+    allowed_value: {
+      label: "Total Sale Price"
+      value: "sale_price"
+    }
+    allowed_value: {
+      label: "Total Cost"
+      value: "id"
+    }
+  }
+
+  measure: dynamic_sum {
+    label: "{% parameter item_to_add_up %}"
+    type: sum
+    sql: ${TABLE}.{% parameter item_to_add_up %} ;;
+    value_format_name: "usd"
+  }
+
+  measure: count_filtered {
+    type: count
+    filters: {
+      field: created_at_date
+      value: "30 days"
+    }
   }
 
   measure: average {

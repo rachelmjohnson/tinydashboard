@@ -37,6 +37,7 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [state]
   }
 
   dimension: west {
@@ -119,10 +120,20 @@ view: users {
     sql_longitude: ${TABLE}.longitude ;;
   }
 
+  parameter: param_label {
+    type: unquoted
+  }
+#   dimension: state {
+#     type: string
+#     sql: ${TABLE}.state ;;
+#     label: "{% parameter param_label %}"
+#   }
+
   dimension: state {
     type: string
-    label: "State Name"
+    #label: "State Name"
     sql: ${TABLE}.state ;;
+    #label: "{% parameter param_label %}"
     map_layer_name: us_states
     #suggestions: ["Florida","Connecticut"]
   }
