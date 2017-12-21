@@ -18,6 +18,8 @@ view: order_items {
     sql: ${TABLE}.delivered_at ;;
   }
 
+  ##test##
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
@@ -37,7 +39,8 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
-    #value_format: "\C\A\D$#,##0.0"
+    value_format: "\C\A\D$#,##0.0"
+    html: <font size="10">{{ value }}</font> ;;
   }
 
   dimension: shipped_at {

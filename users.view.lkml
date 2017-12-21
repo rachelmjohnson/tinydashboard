@@ -84,6 +84,23 @@ view: users {
     sql: ${TABLE}.email ;;
   }
 
+  dimension: filter_param_test {
+    type: string
+    sql: ${TABLE}.{% parameter filter_col %} ;;
+  }
+
+  parameter: filter_col {
+    type: unquoted
+    allowed_value: {
+      label: "First Name"
+      value: "first_name"
+    }
+    allowed_value: {
+      label: "Last Name"
+      value: "last_name"
+    }
+  }
+
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
