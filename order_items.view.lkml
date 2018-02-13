@@ -36,6 +36,11 @@ view: order_items {
     sql: ${TABLE}.returned_at ;;
   }
 
+  dimension: boolean {
+    type: yesno
+    sql: ${status} = Complete ;;
+  }
+
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
@@ -91,9 +96,32 @@ view: order_items {
   measure: count_filtered {
     type: count
     filters: {
-      field: created_at_date
-      value: "30 days"
+      field: status
+      value: "Returned"
     }
+  }
+
+  parameter: date_test {
+    type: number
+    allowed_value: {
+      value: "< 100"
+    }
+  }
+
+  dimension: date_param {
+    type: date
+    sql: {% parameter date_test %} ;;
+  }
+
+  measure: ratio_drill_test {
+    type: number
+    sql: ${count_filtered} / ${count} ;;
+  }
+
+  measure: percent_of_total {
+    type: percent_of_total
+    sql: ${ratio_drill_test} ;;
+    value_format_name: decimal_2
   }
 
   measure: average {
