@@ -38,7 +38,7 @@ view: order_items {
 
   dimension: boolean {
     type: yesno
-    sql: ${status} = Complete ;;
+    sql: ${status} = "Complete" ;;
   }
 
   dimension: sale_price {
