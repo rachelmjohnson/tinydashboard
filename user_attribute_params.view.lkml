@@ -1,4 +1,6 @@
-explore: user_attribute_params {}
+explore: user_attribute_params {
+  hidden: yes
+}
 
 view: user_attribute_params {
   derived_table: {
