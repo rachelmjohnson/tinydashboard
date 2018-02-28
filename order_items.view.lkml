@@ -102,10 +102,10 @@ view: order_items {
   }
 
   parameter: date_test {
-    type: number
-    allowed_value: {
-      value: "< 100"
-    }
+    type: date_time
+#     allowed_value: {
+#       value: "< 100"
+#     }
   }
 
   dimension: date_param {

@@ -74,10 +74,17 @@ view: users {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+#   dimension_group: order_created {
+#     type: time
+#     timeframes: [date, day_of_week]
+#     sql: ${inventory_items.created_at_raw} ;;
+#   }
 
   dimension: email {
     type: string

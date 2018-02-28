@@ -12,9 +12,10 @@ view: inventory_items {
     sql: ${TABLE}.cost ;;
   }
 
-  dimension: created_at {
-    type: string
-    sql: ${TABLE}.created_at ;;
+  dimension_group: created_at {
+    type: time
+    sql: TIMESTAMP(${TABLE}.created_at) ;;
+    timeframes: [day_of_week]
   }
 
   dimension: product_brand {

@@ -29,6 +29,7 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  fields: [ALL_FIELDS*, -users.created_day_of_week]
   join: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     type: left_outer
