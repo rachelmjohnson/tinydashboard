@@ -10,14 +10,14 @@ explore: distribution_centers {
   hidden: yes
 }
 
-explore: web_events {
-  join: users {
-    sql_on: ${users.id} = ${web_events.user_id};;
-    type: left_outer
-    relationship: many_to_one
-  }
-  hidden: yes
-}
+# explore: web_events {
+#   join: users {
+#     sql_on: ${users.id} = ${web_events.user_id};;
+#     type: left_outer
+#     relationship: many_to_one
+#   }
+#   hidden: yes
+# }
 
 explore: inventory_items {
   join: distribution_centers {
@@ -29,7 +29,7 @@ explore: inventory_items {
 }
 
 explore: order_items {
-  fields: [ALL_FIELDS*, -users.created_day_of_week]
+  # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
   join: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     type: left_outer
@@ -57,6 +57,6 @@ explore: order_items {
   hidden: yes
 }
 
-  explore: users {
-    hidden: yes
-  }
+#   explore: users {
+#     hidden: yes
+#   }

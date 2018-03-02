@@ -28,6 +28,11 @@ view: users {
     type: number
   }
 
+  dimension: stringness_test {
+    type: string
+    sql: "001515" ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -80,11 +85,12 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
-#   dimension_group: order_created {
-#     type: time
-#     timeframes: [date, day_of_week]
-#     sql: ${inventory_items.created_at_raw} ;;
-#   }
+  ## for day_of_week validation error##
+  # dimension_group: order_created {
+  #   type: time
+  #   timeframes: [date, day_of_week]
+  #   sql: ${inventory_items.created_at_raw} ;;
+  # }
 
   dimension: email {
     type: string
