@@ -8,6 +8,7 @@ view: users {
   }
 
   dimension: age {
+    label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
     type: number
     sql: ${TABLE}.age ;;
   }
@@ -28,6 +29,11 @@ view: users {
     type: number
   }
 
+  dimension: stringness_test {
+    type: string
+    sql: "00\"1515" ;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
@@ -37,6 +43,32 @@ view: users {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    drill_fields: [state]
+  }
+
+  dimension: west {
+    case: {
+      when: {
+        sql: ${state} = 'California' ;;
+        label: "West"
+      }
+      else: " "
+    }
+  }
+
+  dimension: east {
+    case: {
+      when: {
+        sql: ${state} = 'New York';;
+        label: "East"
+      }
+      else: " "
+    }
+  }
+
+  dimension: region {
+    type: string
+    sql: concat(${west},${east}) ;;
   }
 
   dimension_group: created {
@@ -48,14 +80,39 @@ view: users {
       week,
       month,
       quarter,
-      year
+      year,
+      day_of_week
     ]
     sql: ${TABLE}.created_at ;;
   }
 
+  ## for day_of_week validation error##
+  # dimension_group: order_created {
+  #   type: time
+  #   timeframes: [date, day_of_week]
+  #   sql: ${inventory_items.created_at_raw} ;;
+  # }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
+  }
+
+  dimension: filter_param_test {
+    type: string
+    sql: ${TABLE}.{% parameter filter_col %} ;;
+  }
+
+  parameter: filter_col {
+    type: unquoted
+    allowed_value: {
+      label: "First Name"
+      value: "first_name"
+    }
+    allowed_value: {
+      label: "Last Name"
+      value: "last_name"
+    }
   }
 
   dimension: first_name {
@@ -76,6 +133,7 @@ view: users {
   dimension: full_name {
     type: string
     sql: CONCAT(${first_name}," ",${last_name}) ;;
+    drill_fields: [age]
   }
 
   dimension: latitude {
@@ -94,15 +152,43 @@ view: users {
     sql_longitude: ${TABLE}.longitude ;;
   }
 
+  parameter: param_label {
+    type: unquoted
+  }
+#   dimension: state {
+#     type: string
+#     sql: ${TABLE}.state ;;
+#     label: "{% parameter param_label %}"
+#   }
+
   dimension: state {
     type: string
+    #label: "State Name"
     sql: ${TABLE}.state ;;
+    #label: "{% parameter param_label %}"
     map_layer_name: us_states
+    #suggestions: ["Florida","Connecticut"]
+  }
+
+  measure: percentile_test {
+    type: percentile
+    percentile: 70
+    sql: ${TABLE}.age ;;
+  }
+
+  measure: percentile_filter {
+    type: yesno
+    sql: ${age} > ${percentile_test};;
   }
 
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+  }
+
+  measure: count_facebook {
+    type: sum
+    sql: case when ${traffic_source} = 'Facebook' then 1 else 0 end ;;
   }
 
   dimension: zip {

@@ -10,6 +10,7 @@ view: distribution_centers {
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
+    value_format: "0.00"
   }
 
   dimension: longitude {
