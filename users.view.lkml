@@ -8,6 +8,7 @@ view: users {
   }
 
   dimension: age {
+    label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
     type: number
     sql: ${TABLE}.age ;;
   }
@@ -30,7 +31,7 @@ view: users {
 
   dimension: stringness_test {
     type: string
-    sql: "001515" ;;
+    sql: "00\"1515" ;;
   }
 
   dimension: city {
@@ -132,6 +133,7 @@ view: users {
   dimension: full_name {
     type: string
     sql: CONCAT(${first_name}," ",${last_name}) ;;
+    drill_fields: [age]
   }
 
   dimension: latitude {

@@ -57,6 +57,11 @@ explore: order_items {
   hidden: yes
 }
 
-#   explore: users {
-#     hidden: yes
-#   }
+  explore: users {
+    join: customer {
+      from: users
+      sql_on: ${users.id} = ${customer.id} ;;
+      relationship: one_to_one
+    }
+    hidden: yes
+  }
