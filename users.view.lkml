@@ -170,6 +170,16 @@ view: users {
     #suggestions: ["Florida","Connecticut"]
   }
 
+  dimension: linktestswhitey {
+    type: string
+    group_label: "TEST_greoup"
+    sql: ${TABLE}.state ;;
+    link: {
+      url: "google.com"
+      label:  "blah"
+    }
+  }
+
   measure: percentile_test {
     type: percentile
     percentile: 70
