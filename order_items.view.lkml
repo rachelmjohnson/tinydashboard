@@ -75,6 +75,7 @@ view: order_items {
 
   dimension: user_id {
     type: number
+    description: "this is a description of the field for testing porpoises"
     # hidden: yes
     sql: ${TABLE}.user_id ;;
     value_format_name: percent_0
