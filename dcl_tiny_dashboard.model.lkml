@@ -28,6 +28,8 @@ explore: inventory_items {
   hidden: yes
 }
 
+##testing
+
 explore: order_items {
   # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
   join: users {
@@ -56,6 +58,15 @@ explore: order_items {
   }
   hidden: yes
 }
+
+  explore: orders {
+    from: users
+  join: order_items {
+    sql_on: ${orders.id} = ${order_items.user_id} ;;
+    relationship: many_to_many
+  }
+  hidden: yes
+  }
 
   explore: users {
     join: customer {

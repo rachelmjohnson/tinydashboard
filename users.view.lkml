@@ -8,7 +8,7 @@ view: users {
   }
 
   dimension: age {
-    label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
+    #label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
     type: number
     sql: ${TABLE}.age ;;
   }
@@ -134,6 +134,7 @@ view: users {
     type: string
     sql: CONCAT(${first_name}," ",${last_name}) ;;
     drill_fields: [age]
+    order_by_field: id
   }
 
   dimension: latitude {
@@ -163,22 +164,19 @@ view: users {
 
   dimension: state {
     type: string
-    #label: "State Name"
     sql: ${TABLE}.state ;;
-    #label: "{% parameter param_label %}"
     map_layer_name: us_states
-    #suggestions: ["Florida","Connecticut"]
+    #order_by_field: users.age
   }
 
-  dimension: linktestswhitey {
-    type: string
-    group_label: "TEST_greoup"
-    sql: ${TABLE}.state ;;
-    link: {
-      url: "google.com"
-      label:  "blah"
-    }
-  }
+#   dimension: liquid_test {
+#     type: string
+#     sql: {% if order_items._in_query %}
+#     ${users.state}
+#     {% else %}
+#     ${users.gender}
+#     {% endif %};;
+#   }
 
   measure: percentile_test {
     type: percentile
