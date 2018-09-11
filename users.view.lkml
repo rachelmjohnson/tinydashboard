@@ -1,6 +1,11 @@
 view: users {
   sql_table_name: thelook_web_analytics.users ;;
 
+  filter: state_test_filter {
+    type: string
+    hidden: yes
+  }
+
   dimension: id {
     primary_key: yes
     type: number
@@ -27,6 +32,13 @@ view: users {
 
   parameter: age_tier_bucket_years {
     type: number
+  }
+
+  dimension: image_test {
+    type: string
+    sql: 'string' ;;
+    #html: <img src="https://en.wikipedia.org/wiki/Main_Page#/media/File:PasserPyrrhonotusKeulemans.jpg" /> ;;
+    html: <img src= "https://www.birdlife.org/sites/default/files/styles/1600/public/slide.jpg?itok=HRhQfA1S" /> ;;
   }
 
   dimension: stringness_test {
@@ -166,7 +178,7 @@ view: users {
     type: string
     sql: ${TABLE}.state ;;
     map_layer_name: us_states
-    #order_by_field: users.age
+    order_by_field: age
   }
 
 #   dimension: liquid_test {
