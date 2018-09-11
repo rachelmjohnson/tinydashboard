@@ -95,6 +95,7 @@ view: users {
       year,
       day_of_week
     ]
+    convert_tz: no
     sql: ${TABLE}.created_at ;;
   }
 

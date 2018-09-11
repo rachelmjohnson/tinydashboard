@@ -28,10 +28,17 @@ explore: inventory_items {
   hidden: yes
 }
 
-##testing
+
+### Testing prewarming dashboard cache with schedules 8/27/18
+datagroup: zach_test {
+  sql_trigger:  SELECT EXTRACT(HOUR FROM CURRENT_TIMESTAMP()) ;;
+  max_cache_age: "1 hour"
+}
+
 
 explore: order_items {
   # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
+  persist_with: zach_test
   join: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     type: left_outer
