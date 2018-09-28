@@ -136,6 +136,7 @@ view: users {
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+    drill_fields: [first_name,last_name, full_name]
   }
 
   dimension: last_name {
