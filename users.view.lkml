@@ -99,6 +99,20 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  filter: mydate {
+    type: date
+  }
+
+  dimension: startfield {
+    type: date
+    sql: {% date_start mydate %} ;;
+  }
+
+  dimension: endfield {
+    type: date
+    sql: {% date_end mydate %} ;;
+  }
+
   ## for day_of_week validation error##
   # dimension_group: order_created {
   #   type: time
