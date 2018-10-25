@@ -10,7 +10,9 @@ explore: distribution_centers {
   hidden: yes
 }
 
-explore: json_corelogic {}
+explore: json_corelogic {
+  persist_for: "1 minutes"
+}
 
 # explore: web_events {
 #   join: users {
