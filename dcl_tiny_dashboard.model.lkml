@@ -11,7 +11,7 @@ explore: distribution_centers {
 }
 
 explore: json_corelogic {
-  persist_for: "1 minutes"
+  persist_for: "24 hour"
 }
 
 # explore: web_events {
