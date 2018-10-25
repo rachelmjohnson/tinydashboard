@@ -3,7 +3,7 @@ view: json_corelogic {
     sql: SELECT
       2763463590 as Clip_Sources_Tree_Templated_Filter_ID,
       "Tax Roll" as Clip_Sources_Tree_Templated_Filter_Source,
-      '{"value":"Y","score":"0.49"}' as Clip_Sources_Tree_Templated_Filter_Air_Conditioning
+      '{"value":"N","score":"0.49"}' as Clip_Sources_Tree_Templated_Filter_Air_Conditioning
 
       UNION ALL
 
