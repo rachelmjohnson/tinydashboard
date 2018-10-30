@@ -10,6 +10,10 @@ explore: distribution_centers {
   hidden: yes
 }
 
+explore: json_corelogic {
+  persist_for: "24 hour"
+}
+
 # explore: web_events {
 #   join: users {
 #     sql_on: ${users.id} = ${web_events.user_id};;

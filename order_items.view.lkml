@@ -65,7 +65,8 @@ view: order_items {
 
   dimension: status {
     type: string
-    sql: ${TABLE}.status ;;
+    sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
+    html:  test but show {{ value }} ;;
     link: {
       label: "test"
       url: "/dashboards/968"
