@@ -227,5 +227,13 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: thing {
+    sql: {% if other_thing._is_filtered %} x {% else %} y {% endif %} ;;
+  }
+
+  dimension: other_thing {
+    type: number
+    sql: select 1;;
+  }
 
 }
