@@ -49,6 +49,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    html: <div style="text-align:center;float:left;font-weight: bold">{{ value }}</div> ;;
   }
 
   dimension: country {
@@ -96,6 +97,11 @@ view: users {
       day_of_week
     ]
     convert_tz: no
+    sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: created_2 {
+    type: date
     sql: ${TABLE}.created_at ;;
   }
 
@@ -233,8 +239,11 @@ view: users {
 
   measure: count {
     type: count
+    html: <p style="font-size:30px"> {{value}} </p> ;;
     drill_fields: [id, last_name, first_name, events.count, order_items.count]
   }
+
+
 
   measure: avg_age {
     type: average

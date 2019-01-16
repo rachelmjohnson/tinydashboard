@@ -146,7 +146,7 @@ view: order_items {
   }
 
   measure: total_revenue {
-    type: sum
+    type: count
     sql: ${TABLE}.sale_price ;;
     #value_format: "$#,##0.00;($#,##0.00)"
     #value_format_name: usd
@@ -159,10 +159,12 @@ view: order_items {
 #  }
 
   measure: order_count {
-    type: count_distinct
+    type: count
     sql: ${TABLE}.order_id ;;
     #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
   }
+
+
 
   measure: revenue_per_order {
     type: number

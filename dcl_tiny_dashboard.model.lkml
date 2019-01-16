@@ -35,8 +35,8 @@ explore: inventory_items {
 
 ### Testing prewarming dashboard cache with schedules 8/27/18
 datagroup: zach_test {
-  sql_trigger:  SELECT EXTRACT(HOUR FROM CURRENT_TIMESTAMP()) ;;
-  max_cache_age: "1 hour"
+  #sql_trigger:  SELECT EXTRACT(HOUR FROM CURRENT_TIMESTAMP()) ;;
+  max_cache_age: "1 minute"
 }
 
 
@@ -62,6 +62,7 @@ explore: order_items {
 }
 
   explore: products {
+    label: "Products Test change"
   join: inventory_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     type: left_outer
@@ -80,6 +81,10 @@ explore: order_items {
   }
 
   explore: users {
+    access_filter: {
+      field: users.age
+      user_attribute: testinguser
+    }
     join: customer {
       from: users
       sql_on: ${users.id} = ${customer.id} ;;
@@ -87,3 +92,5 @@ explore: order_items {
     }
     hidden: yes
   }
+
+  explore: test {}
