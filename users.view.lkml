@@ -15,6 +15,7 @@ view: users {
   dimension: age {
     #label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
     type: number
+    label: "age"
     sql: ${TABLE}.age ;;
   }
 
@@ -238,6 +239,7 @@ view: users {
   }
 
   measure: count {
+    label: "count"
     type: count
     html: <p style="font-size:30px"> {{value}} </p> ;;
     drill_fields: [id, last_name, first_name, events.count, order_items.count]
