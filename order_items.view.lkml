@@ -160,7 +160,7 @@ view: order_items {
 
   measure: order_count {
     type: count
-    sql: ${TABLE}.order_id ;;
+    sql: ${TABLE}.order_id , ${TABLE}.delivered_at ;;
     #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
   }
 
