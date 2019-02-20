@@ -1,4 +1,3 @@
-project_name: "srinija_local_embed_test"
 
 # # Use local_dependency: To enable referencing of another project
 # # on this instance with include: statements
@@ -9,6 +8,6 @@ project_name: "srinija_local_embed_test"
 
 
 localization_settings: {
-  default_locale: en
+  default_locale: english
   localization_level: permissive
 }
