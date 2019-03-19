@@ -42,6 +42,12 @@ view: orders {
     sql: ${TABLE}.user_id ;;
   }
 
+  dimension: id_yesno {
+    type: yesno
+    sql: ${id} in (1, 3, 5, 6, 7, 10, 12, 14, 15)  ;;
+#     sql: ${id}=1 OR ${id}=3 OR ${id}=5 ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, users.id, users.name, order_items.count]
