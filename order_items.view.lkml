@@ -72,7 +72,10 @@ view: order_items {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+    link: {
+      label: "google_test"
+      url: "www.google.com"
+    }
   }
 
   parameter: item_to_add_up {
