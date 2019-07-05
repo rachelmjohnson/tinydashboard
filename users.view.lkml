@@ -1,6 +1,11 @@
 view: users {
   sql_table_name: thelook_web_analytics.users ;;
 
+  filter: state_test_filter {
+    type: string
+    hidden: yes
+  }
+
   dimension: id {
     primary_key: yes
     type: number
@@ -8,8 +13,9 @@ view: users {
   }
 
   dimension: age {
-    label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
+    #label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
     type: number
+    label: "age"
     sql: ${TABLE}.age ;;
   }
 
@@ -29,6 +35,13 @@ view: users {
     type: number
   }
 
+  dimension: image_test {
+    type: string
+    sql: 'string' ;;
+    #html: <img src="https://en.wikipedia.org/wiki/Main_Page#/media/File:PasserPyrrhonotusKeulemans.jpg" /> ;;
+    html: <img src= "https://www.birdlife.org/sites/default/files/styles/1600/public/slide.jpg?itok=HRhQfA1S" /> ;;
+  }
+
   dimension: stringness_test {
     type: string
     sql: "00\"1515" ;;
@@ -37,6 +50,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    html: <div style="text-align:center;float:left;font-weight: bold">{{ value }}</div> ;;
   }
 
   dimension: country {
@@ -83,7 +97,27 @@ view: users {
       year,
       day_of_week
     ]
+    convert_tz: no
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: created_2 {
+    type: date
+    sql: ${TABLE}.created_at ;;
+  }
+
+  filter: mydate {
+    type: date
+  }
+
+  dimension: startfield {
+    type: date
+    sql: {% date_start mydate %} ;;
+  }
+
+  dimension: endfield {
+    type: date
+    sql: {% date_end mydate %} ;;
   }
 
   ## for day_of_week validation error##
@@ -134,6 +168,7 @@ view: users {
     type: string
     sql: CONCAT(${first_name}," ",${last_name}) ;;
     drill_fields: [age]
+    order_by_field: id
   }
 
   dimension: latitude {
@@ -163,22 +198,19 @@ view: users {
 
   dimension: state {
     type: string
-    #label: "State Name"
     sql: ${TABLE}.state ;;
-    #label: "{% parameter param_label %}"
     map_layer_name: us_states
-    #suggestions: ["Florida","Connecticut"]
+    order_by_field: age
   }
 
-  dimension: linktestswhitey {
-    type: string
-    group_label: "TEST_greoup"
-    sql: ${TABLE}.state ;;
-    link: {
-      url: "google.com"
-      label:  "blah"
-    }
-  }
+#   dimension: liquid_test {
+#     type: string
+#     sql: {% if order_items._in_query %}
+#     ${users.state}
+#     {% else %}
+#     ${users.gender}
+#     {% endif %};;
+#   }
 
   measure: percentile_test {
     type: percentile
@@ -207,14 +239,26 @@ view: users {
   }
 
   measure: count {
+    label: "count"
     type: count
+    html: <p style="font-size:30px"> {{value}} </p> ;;
     drill_fields: [id, last_name, first_name, events.count, order_items.count]
   }
+
+
 
   measure: avg_age {
     type: average
     sql: ${TABLE}.age ;;
   }
 
+  dimension: thing {
+    sql: {% if other_thing._is_filtered %} x {% else %} y {% endif %} ;;
+  }
+
+  dimension: other_thing {
+    type: number
+    sql: select 1;;
+  }
 
 }

@@ -10,6 +10,10 @@ explore: distribution_centers {
   hidden: yes
 }
 
+explore: json_corelogic {
+  persist_for: "24 hour"
+}
+
 # explore: web_events {
 #   join: users {
 #     sql_on: ${users.id} = ${web_events.user_id};;
@@ -28,8 +32,17 @@ explore: inventory_items {
   hidden: yes
 }
 
+
+### Testing prewarming dashboard cache with schedules 8/27/18
+datagroup: zach_test {
+  #sql_trigger:  SELECT EXTRACT(HOUR FROM CURRENT_TIMESTAMP()) ;;
+  max_cache_age: "1 minute"
+}
+
+
 explore: order_items {
   # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
+  persist_with: zach_test
   join: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     type: left_outer
@@ -49,6 +62,7 @@ explore: order_items {
 }
 
   explore: products {
+    label: "Products Test change"
   join: inventory_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     type: left_outer
@@ -57,7 +71,20 @@ explore: order_items {
   hidden: yes
 }
 
+  explore: orders {
+    from: users
+  join: order_items {
+    sql_on: ${orders.id} = ${order_items.user_id} ;;
+    relationship: many_to_many
+  }
+  hidden: yes
+  }
+
   explore: users {
+    access_filter: {
+      field: users.age
+      user_attribute: testinguser
+    }
     join: customer {
       from: users
       sql_on: ${users.id} = ${customer.id} ;;
@@ -65,3 +92,5 @@ explore: order_items {
     }
     hidden: yes
   }
+
+  explore: test {}

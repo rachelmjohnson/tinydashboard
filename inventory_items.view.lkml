@@ -25,6 +25,24 @@ view: inventory_items {
 
 #test
 
+  dimension: dummy_three {
+    case: {
+      when: {
+        label: "Count"
+        sql: 1=1 ;;
+      }
+      when: {
+        label: "Count Inventory Items"
+        sql: 1=1 ;;
+      }
+      when: {
+        label: "Count Orders"
+        sql: 1=1 ;;
+      }
+    }
+    }
+
+
   dimension: product_category {
     type: string
     sql: ${TABLE}.product_category ;;

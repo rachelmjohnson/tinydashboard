@@ -1,15 +1,24 @@
 view: order_items {
   sql_table_name: thelook_web_analytics.order_items ;;
 
+  filter: phase {
+    type: string
+    suggest_dimension: order_items.status
+  }
+
+  parameter: string_param {
+    type: string
+  }
+
   dimension: id {
-    primary_key: yes
+    #primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
   }
 
   dimension_group: created_at {
     type: time
-   # timeframes: [raw,date,month,week,year,month_name]
+   timeframes: [raw,date,month,week,year,month_name,day_of_month]
     sql: TIMESTAMP(${TABLE}.created_at) ;;
   }
 
@@ -27,6 +36,7 @@ view: order_items {
   }
 
   dimension: order_id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.order_id ;;
   }
@@ -55,7 +65,8 @@ view: order_items {
 
   dimension: status {
     type: string
-    sql: ${TABLE}.status ;;
+    sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
+    html:  test but show {{ value }} ;;
     link: {
       label: "test"
       url: "/dashboards/968"
@@ -68,6 +79,9 @@ view: order_items {
     description: "this is a description of the field for testing porpoises"
     # hidden: yes
     sql: ${TABLE}.user_id ;;
+    value_format_name: percent_0
+    #html: <font color="green">{{ rendered_value }}</font>;;
+    html: <div style="background: #60BD68; border-radius: 2px; color: #fff; font-size: 11px; font-weight: bold; width: 100%; text-align: center;">{{ rendered_value }}</div> ;;
   }
 
   measure: count {
@@ -120,6 +134,7 @@ view: order_items {
   measure: ratio_drill_test {
     type: number
     sql: ${count_filtered} / ${count} ;;
+    drill_fields: [id,status]
   }
 
   measure: percent_of_total {
@@ -134,9 +149,9 @@ view: order_items {
   }
 
   measure: total_revenue {
-    type: sum
+    type: count
     sql: ${TABLE}.sale_price ;;
-    value_format: "$#,##0.00;($#,##0.00)"
+    #value_format: "$#,##0.00;($#,##0.00)"
     #value_format_name: usd
   }
 
@@ -147,9 +162,17 @@ view: order_items {
 #  }
 
   measure: order_count {
-    type: count_distinct
-    sql: ${TABLE}.order_id ;;
+    type: count
+    sql: ${TABLE}.order_id , ${TABLE}.delivered_at ;;
     #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
+  }
+
+
+
+  measure: revenue_per_order {
+    type: number
+    sql:${total_revenue} / ${order_count} ;;
+    value_format_name: usd
   }
 
   # ----- Sets of fields for drilling ------
