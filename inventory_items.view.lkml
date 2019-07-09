@@ -12,9 +12,10 @@ view: inventory_items {
     sql: ${TABLE}.cost ;;
   }
 
-  dimension: created_at {
-    type: string
-    sql: ${TABLE}.created_at ;;
+  dimension_group: created_at {
+    type: time
+    sql: TIMESTAMP(${TABLE}.created_at) ;;
+    timeframes: [day_of_week]
   }
 
   dimension: product_brand {
@@ -23,6 +24,24 @@ view: inventory_items {
   }
 
 #test
+
+  dimension: dummy_three {
+    case: {
+      when: {
+        label: "Count"
+        sql: 1=1 ;;
+      }
+      when: {
+        label: "Count Inventory Items"
+        sql: 1=1 ;;
+      }
+      when: {
+        label: "Count Orders"
+        sql: 1=1 ;;
+      }
+    }
+    }
+
 
   dimension: product_category {
     type: string
