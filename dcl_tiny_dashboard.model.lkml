@@ -32,26 +32,6 @@ explore: inventory_items {
   hidden: yes
 }
 
-<<<<<<< HEAD
-# explore: order_items {
-#   join: users {
-#     sql_on: ${users.id} = ${order_items.user_id} ;;
-#     type: left_outer
-#     relationship: many_to_one
-#   }
-#   join: inventory_items {
-#     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
-#     type: left_outer
-#     relationship: many_to_one
-#   }
-#   join: products {
-#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
-#     type: left_outer
-#     relationship: many_to_one
-#   }
-#   hidden: yes
-# }
-=======
 
 ### Testing prewarming dashboard cache with schedules 8/27/18
 datagroup: zach_test {
@@ -80,50 +60,37 @@ explore: order_items {
   }
   hidden: yes
 }
->>>>>>> branch 'master' of git@github.com:rachelmjohnson/tinydashboard.git
 
-  explore: products {
-    label: "Products Test change"
-  join: inventory_items {
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    type: left_outer
-    relationship: many_to_one
+explore: products {
+  label: "Products Test change"
+join: inventory_items {
+  sql_on: ${inventory_items.product_id} = ${products.id} ;;
+  type: left_outer
+  relationship: many_to_one
+}
+hidden: yes
+}
+
+explore: orders {
+  from: users
+join: order_items {
+  sql_on: ${orders.id} = ${order_items.user_id} ;;
+  relationship: many_to_many
+}
+hidden: yes
+}
+
+explore: users {
+  access_filter: {
+    field: users.age
+    user_attribute: testinguser
+  }
+  join: customer {
+    from: users
+    sql_on: ${users.id} = ${customer.id} ;;
+    relationship: one_to_one
   }
   hidden: yes
 }
 
-<<<<<<< HEAD
-explore: users {}
-
-#   explore: users {
-#     join: users2 {
-#       from: users
-#       sql_on: ${users.id} = (${users2.id}-1) ;;
-#       type: left_outer
-#     }
-#   }
-=======
-  explore: orders {
-    from: users
-  join: order_items {
-    sql_on: ${orders.id} = ${order_items.user_id} ;;
-    relationship: many_to_many
-  }
-  hidden: yes
-  }
-
-  explore: users {
-    access_filter: {
-      field: users.age
-      user_attribute: testinguser
-    }
-    join: customer {
-      from: users
-      sql_on: ${users.id} = ${customer.id} ;;
-      relationship: one_to_one
-    }
-    hidden: yes
-  }
-
-  explore: test {}
->>>>>>> branch 'master' of git@github.com:rachelmjohnson/tinydashboard.git
+explore: test {}
