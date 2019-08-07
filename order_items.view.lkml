@@ -10,6 +10,10 @@ view: order_items {
     type: string
   }
 
+
+filter: date_Test {
+  type: date
+}
   dimension: id {
     #primary_key: yes
     type: number

@@ -41,6 +41,12 @@ datagroup: zach_test {
 
 
 explore: order_items {
+  always_filter: {
+    filters: {
+      field: date_Test
+      value: "2015"
+    }
+  }
   # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
   persist_with: zach_test
   join: users {
@@ -79,6 +85,8 @@ explore: order_items {
   }
   hidden: yes
   }
+
+
 
   explore: users {
     access_filter: {

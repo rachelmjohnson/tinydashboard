@@ -241,7 +241,7 @@ view: users {
   measure: count {
     label: "count"
     type: count
-    html: <p style="font-size:30px"> {{value}} </p> ;;
+    #html: <p style="font-size:30px"> {{value}} </p> ;;
     drill_fields: [id, last_name, first_name, events.count, order_items.count]
   }
 
