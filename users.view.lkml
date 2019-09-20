@@ -1,10 +1,26 @@
 view: users {
   sql_table_name: thelook_web_analytics.users ;;
 
-  filter: state_test_filter {
+set: test_users {
+  fields: [id,age,age_tier]
+}
+
+
+
+  parameter: test_string {
     type: string
-    hidden: yes
   }
+
+  dimension: param_Test_link {
+    type: string
+    sql: CASE
+         WHEN {% parameter test_string %} = '"city"' THEN
+           ${city}
+          ELSE
+           NULL
+       END ;;
+  }
+
 
   dimension: id {
     primary_key: yes
@@ -50,7 +66,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-    html: <div style="text-align:center;float:left;font-weight: bold">{{ value }}</div> ;;
+   # html: <div style="text-align:center;float:left;font-weight: bold">{{ value }}</div> ;;
   }
 
   dimension: country {
@@ -60,6 +76,10 @@ view: users {
     drill_fields: [state]
   }
 
+
+parameter: test_date {
+  type: date
+}
   dimension: west {
     case: {
       when: {
@@ -95,7 +115,8 @@ view: users {
       month,
       quarter,
       year,
-      day_of_week
+      day_of_week,
+      time_of_day
     ]
     convert_tz: no
     sql: ${TABLE}.created_at ;;
@@ -190,17 +211,22 @@ view: users {
   parameter: param_label {
     type: unquoted
   }
-#   dimension: state {
-#     type: string
-#     sql: ${TABLE}.state ;;
-#     label: "{% parameter param_label %}"
-#   }
-
   dimension: state {
     type: string
+    label: "test_html"
     sql: ${TABLE}.state ;;
-    map_layer_name: us_states
-    order_by_field: age
+    #label: "{% parameter param_label %}"
+    html: <a href="https://www.w3schools.com" target="_blank"> {{value}} </a> ;;
+  }
+
+  dimension: STATE_ID {
+    type: string
+    sql: ${TABLE}.state ;;
+  }
+
+  dimension: stATe_id {
+    type: string
+    sql: ${TABLE}.state ;;
   }
 
 #   dimension: liquid_test {

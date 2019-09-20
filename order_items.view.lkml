@@ -22,7 +22,7 @@ filter: date_Test {
 
   dimension_group: created_at {
     type: time
-   timeframes: [raw,date,month,week,year,month_name,day_of_month]
+   timeframes: [raw,date,month,week,year,month_name,day_of_month,fiscal_quarter,fiscal_year]
     sql: TIMESTAMP(${TABLE}.created_at) ;;
   }
 
