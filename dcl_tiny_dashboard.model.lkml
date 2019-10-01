@@ -99,28 +99,5 @@ explore: users {
   hidden: yes
 }
 
-<<<<<<< HEAD
-  explore: orders {
-    from: users
-  join: order_items {
-    sql_on: ${orders.id} = ${order_items.user_id} ;;
-    relationship: many_to_many
-  }
-  hidden: yes
-  }
-
-
-
-  explore: users {
-    join: customer {
-      from: users
-      sql_on: ${users.id} = ${customer.id} ;;
-      relationship: one_to_one
-    }
-    hidden: yes
-  }
 
   explore: test {}
-=======
-explore: test {}
->>>>>>> branch 'master' of git@github.com:rachelmjohnson/tinydashboard.git
