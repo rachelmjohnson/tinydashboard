@@ -1,5 +1,7 @@
 connection: "bigquery_publicdata_standard_sql"
 
+aggregate_awareness: yes
+
 # include all the views
 include: "*.view"
 
