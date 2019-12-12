@@ -112,7 +112,7 @@ parameter: test_date {
       time,
       date,
       week,
-      #month,
+      month,
       quarter,
       year,
       day_of_week,
