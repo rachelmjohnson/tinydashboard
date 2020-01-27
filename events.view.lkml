@@ -12,6 +12,8 @@ view: web_events {
     sql: ${TABLE}.browser ;;
   }
 
+
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;

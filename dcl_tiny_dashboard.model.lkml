@@ -1,5 +1,7 @@
 connection: "bigquery_publicdata_standard_sql"
 
+aggregate_awareness: yes
+
 # include all the views
 include: "*.view"
 
@@ -13,6 +15,11 @@ explore: distribution_centers {
 explore: json_corelogic {
   persist_for: "24 hour"
 }
+
+
+explore: correlated_test {}
+
+explore: add_a_unique_name_1567555639 {}
 
 # explore: web_events {
 #   join: users {
@@ -42,7 +49,8 @@ datagroup: zach_test {
 
 explore: order_items {
   # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
-  persist_with: zach_test
+  #persist_with: zach_test
+  fields: [ALL_FIELDS*, -users.test_users*]
   join: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
     type: left_outer
@@ -93,4 +101,5 @@ explore: users {
   hidden: yes
 }
 
-explore: test {}
+
+  explore: test {}

@@ -1,6 +1,10 @@
 view: inventory_items {
   sql_table_name: thelook_web_analytics.inventory_items ;;
 
+set: test_set {
+fields: [id]
+}
+
   dimension: id {
     primary_key: yes
     type: number

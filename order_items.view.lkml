@@ -10,6 +10,10 @@ view: order_items {
     type: string
   }
 
+
+filter: date_Test {
+  type: date
+}
   dimension: id {
     #primary_key: yes
     type: number
@@ -18,7 +22,7 @@ view: order_items {
 
   dimension_group: created_at {
     type: time
-   timeframes: [raw,date,month,week,year,month_name,day_of_month]
+   timeframes: [raw,date,month,week,year,month_name,day_of_month,fiscal_quarter,fiscal_year]
     sql: TIMESTAMP(${TABLE}.created_at) ;;
   }
 
