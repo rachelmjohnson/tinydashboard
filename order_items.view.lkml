@@ -66,11 +66,17 @@ view: order_items {
   dimension: status {
     type: string
     sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
-    html:  test but show {{ value }} ;;
     link: {
       label: "test"
       url: "/dashboards/968"
-
+    }
+    link: {
+      label: "test2"
+      url: "/dashboards/1234"
+    }
+    action: {
+      label: "actionylabel"
+      url: "https://www.goog.com"
     }
   }
 
@@ -180,7 +186,8 @@ view: order_items {
       users.id,
       users.first_name,
       inventory_items.id,
-      inventory_items.product_name
+      inventory_items.product_name,
+      status
     ]
   }
 }

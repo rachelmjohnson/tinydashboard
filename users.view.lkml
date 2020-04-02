@@ -198,6 +198,7 @@ view: users {
 
   dimension: state {
     type: string
+    html:   <a href="https://tophatter.com/lots/{{value}}" target="_new">{{value}}</a>;;
     sql: ${TABLE}.state ;;
     map_layer_name: us_states
     order_by_field: age
