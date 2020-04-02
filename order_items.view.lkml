@@ -165,9 +165,17 @@ filter: date_Test {
 #     value_format: "$#,##0.00;($#,##0.00)"
 #  }
 
-  measure: order_count {
+  measure: order_count_1 {
     type: count
     sql: ${TABLE}.order_id , ${TABLE}.delivered_at ;;
+    #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
+    drill_fields: []
+  }
+
+  measure: order_count {
+    type: number
+    sql: ${order_count_1} ;;
+    html: {{rendered_value}} ;;
     #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
   }
 
