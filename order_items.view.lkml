@@ -10,6 +10,10 @@ view: order_items {
     type: string
   }
 
+
+filter: date_Test {
+  type: date
+}
   dimension: id {
     #primary_key: yes
     type: number
@@ -18,7 +22,7 @@ view: order_items {
 
   dimension_group: created_at {
     type: time
-   timeframes: [raw,date,month,week,year,month_name,day_of_month]
+   timeframes: [raw,date,month,week,year,month_name,day_of_month,fiscal_quarter,fiscal_year]
     sql: TIMESTAMP(${TABLE}.created_at) ;;
   }
 
@@ -92,7 +96,10 @@ view: order_items {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+    link: {
+      label: "google_test"
+      url: "www.google.com"
+    }
   }
 
   parameter: item_to_add_up {
