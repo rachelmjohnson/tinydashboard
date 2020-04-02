@@ -215,7 +215,6 @@ parameter: test_date {
   }
   dimension: state {
     type: string
-    label: "test_html"
     sql: ${TABLE}.state ;;
     #label: "{% parameter param_label %}"
     html: <a href="https://www.w3schools.com" target="_blank"> {{value}} </a> ;;
