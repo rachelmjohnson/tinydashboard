@@ -66,7 +66,7 @@
     name: Column Chart
     model: dcl_tiny_dashboard
     explore: order_items
-    type: looker_grid
+    type: table
     fields: [users.created_month, users.count, users.created_time, users.first_name]
     sorts: [users.count desc]
     limit: 5000
