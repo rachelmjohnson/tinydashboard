@@ -106,6 +106,7 @@ parameter: test_date {
   }
 
   dimension_group: created {
+    drill_fields: []
     type: time
     timeframes: [
       raw,
@@ -119,6 +120,7 @@ parameter: test_date {
       time_of_day
     ]
     convert_tz: no
+    html: {{rendered_value}} ;;
     sql: ${TABLE}.created_at ;;
   }
 
