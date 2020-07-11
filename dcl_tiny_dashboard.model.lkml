@@ -3,10 +3,10 @@ connection: "bigquery_publicdata_standard_sql"
 aggregate_awareness: yes
 
 # include all the views
-include: "*.view"
+include: "*.view.lkml"
 
 # include all the dashboards
-include: "*.dashboard"
+include: "*.dashboard.lookml"
 
 explore: distribution_centers {
   hidden: yes
