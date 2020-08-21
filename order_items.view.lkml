@@ -89,6 +89,11 @@ view: order_items {
     drill_fields: [detail*]
   }
 
+  measure: count_distinct {
+    type: count_distinct
+    sql: ${order_id}  ;;
+  }
+
   parameter: item_to_add_up {
     type: unquoted
     allowed_value: {
