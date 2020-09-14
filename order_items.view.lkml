@@ -70,11 +70,17 @@ filter: date_Test {
   dimension: status {
     type: string
     sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
-    html:  test but show {{ value }} ;;
     link: {
       label: "test"
       url: "/dashboards/968"
-
+    }
+    link: {
+      label: "test2"
+      url: "/dashboards/1234"
+    }
+    action: {
+      label: "actionylabel"
+      url: "https://www.goog.com"
     }
   }
 
@@ -94,6 +100,11 @@ filter: date_Test {
       label: "google_test"
       url: "www.google.com"
     }
+  }
+
+  measure: count_distinct {
+    type: count_distinct
+    sql: ${order_id}  ;;
   }
 
   parameter: item_to_add_up {
@@ -165,9 +176,17 @@ filter: date_Test {
 #     value_format: "$#,##0.00;($#,##0.00)"
 #  }
 
-  measure: order_count {
+  measure: order_count_1 {
     type: count
     sql: ${TABLE}.order_id , ${TABLE}.delivered_at ;;
+    #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
+    drill_fields: []
+  }
+
+  measure: order_count {
+    type: number
+    sql: ${order_count_1} ;;
+    html: {{rendered_value}} ;;
     #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
   }
 
@@ -187,7 +206,8 @@ filter: date_Test {
       users.id,
       users.first_name,
       inventory_items.id,
-      inventory_items.product_name
+      inventory_items.product_name,
+      status
     ]
   }
 }
