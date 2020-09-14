@@ -28,6 +28,11 @@ set: test_users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: address {
+    type: string
+    sql: ${city} || ' ' || ${state} || ' ' || ${country} || ' ' || ${zip} ;;
+  }
+
   dimension: age {
     #label: "{% if  _view._name == 'users' %} {{'User Age'}} {% elsif _view._name == 'customer' %} {{ 'Customer Age' }} {% else %} {{ 'Employee Age'}} {% endif %}"
     type: number
