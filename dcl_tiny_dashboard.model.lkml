@@ -50,6 +50,15 @@ datagroup: zach_test {
 explore: order_items {
   # fields: [ALL_FIELDS*, -users.order_created_day_of_week, -users.order_created_date]
   #persist_with: zach_test
+
+  always_filter: {
+    filters: [order_items.status_p: "All"]
+  }
+  sql_always_where:
+  {% if order_items.status_p._parameter_value == 'All' %} 1=1 {% else %}
+    ${status} = {{ order_items.status_p._parameter_value }}
+  {% endif %};;
+
   fields: [ALL_FIELDS*, -users.test_users*]
   join: users {
     sql_on: ${users.id} = ${order_items.user_id} ;;
