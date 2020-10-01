@@ -11,23 +11,6 @@ view: order_items {
   }
 
 
-  parameter: status_p {
-    allowed_value: {
-      label: "Cancelled"
-      value: "Cancelled"
-    }
-    allowed_value: {
-      label: "Complete"
-      value: "Complete"
-    }
-    allowed_value: {
-      label: "All"
-      value: "All"
-    }
-    default_value: "All"
-  }
-
-
 filter: date_Test {
   type: date
 }
@@ -83,27 +66,23 @@ filter: date_Test {
     type: string
     sql: ${TABLE}.shipped_at ;;
   }
+
   dimension: status {
     type: string
-    sql: ${TABLE}.status ;;
+    sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
+    link: {
+      label: "test"
+      url: "/dashboards/968"
+    }
+    link: {
+      label: "test2"
+      url: "/dashboards/1234"
+    }
+    action: {
+      label: "actionylabel"
+      url: "https://www.goog.com"
+    }
   }
-
-  # dimension: status {
-  #   type: string
-  #   sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
-  #   link: {
-  #     label: "test"
-  #     url: "/dashboards/968"
-  #   }
-  #   link: {
-  #     label: "test2"
-  #     url: "/dashboards/1234"
-  #   }
-  #   action: {
-  #     label: "actionylabel"
-  #     url: "https://www.goog.com"
-  #   }
-  # }
 
   dimension: user_id {
     type: number
