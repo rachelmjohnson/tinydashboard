@@ -5,6 +5,8 @@ aggregate_awareness: yes
 # include all the views
 include: "*.view.lkml"
 
+include: "taylor_html_nulls/*.lkml"
+
 # include all the dashboards
 include: "*.dashboard.lookml"
 

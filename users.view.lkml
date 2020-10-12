@@ -192,13 +192,6 @@ parameter: test_date {
     sql: ${TABLE}.last_name ;;
   }
 
-  dimension: full_name {
-    type: string
-    sql: CONCAT(${first_name}," ",${last_name}) ;;
-    drill_fields: [age]
-    order_by_field: id
-  }
-
   dimension: latitude {
     type: number
     sql: ${TABLE}.latitude ;;
@@ -274,7 +267,7 @@ parameter: test_date {
     label: "count"
     type: count
     #html: <p style="font-size:30px"> {{value}} </p> ;;
-    drill_fields: [id, last_name, first_name, events.count, order_items.count]
+    drill_fields: [id, last_name, events.count, order_items.count]
   }
 
 
