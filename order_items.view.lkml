@@ -10,6 +10,10 @@ view: order_items {
     type: string
   }
 
+
+filter: date_Test {
+  type: date
+}
   dimension: id {
     #primary_key: yes
     type: number
@@ -18,7 +22,7 @@ view: order_items {
 
   dimension_group: created_at {
     type: time
-   timeframes: [raw,date,month,week,year,month_name,day_of_month]
+   timeframes: [raw,date,month,week,year,month_name,day_of_month,fiscal_quarter,fiscal_year]
     sql: TIMESTAMP(${TABLE}.created_at) ;;
   }
 
@@ -66,11 +70,17 @@ view: order_items {
   dimension: status {
     type: string
     sql: CASE WHEN ${TABLE}.status = 'Shipped' THEN NULL ELSE ${TABLE}.status END;;
-    html:  test but show {{ value }} ;;
     link: {
       label: "test"
       url: "/dashboards/968"
-
+    }
+    link: {
+      label: "test2"
+      url: "/dashboards/1234"
+    }
+    action: {
+      label: "actionylabel"
+      url: "https://www.goog.com"
     }
   }
 
@@ -86,7 +96,15 @@ view: order_items {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+    link: {
+      label: "google_test"
+      url: "www.google.com"
+    }
+  }
+
+  measure: count_distinct {
+    type: count_distinct
+    sql: ${order_id}  ;;
   }
   measure: count_with_custom_link {
     type: count
@@ -162,9 +180,17 @@ view: order_items {
 #     value_format: "$#,##0.00;($#,##0.00)"
 #  }
 
-  measure: order_count {
+  measure: order_count_1 {
     type: count
     sql: ${TABLE}.order_id , ${TABLE}.delivered_at ;;
+    #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
+    drill_fields: []
+  }
+
+  measure: order_count {
+    type: number
+    sql: ${order_count_1} ;;
+    html: {{rendered_value}} ;;
     #html: {{rendered_value}} || {{total_revenue._rendered_value}} of total;;
   }
 
@@ -184,7 +210,8 @@ view: order_items {
       users.id,
       users.first_name,
       inventory_items.id,
-      inventory_items.product_name
+      inventory_items.product_name,
+      status
     ]
   }
 }

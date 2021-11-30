@@ -9,6 +9,7 @@ view: products {
 
   dimension: brand {
     type: string
+    label: "brand with label"
     sql: ${TABLE}.brand ;;
   }
 
