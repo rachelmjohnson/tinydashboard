@@ -96,10 +96,7 @@ filter: date_Test {
 
   measure: count {
     type: count
-    link: {
-      label: "google_test"
-      url: "www.google.com"
-    }
+    drill_fields: [detail*]
   }
 
   measure: count_distinct {
@@ -108,7 +105,8 @@ filter: date_Test {
   }
   measure: count_with_custom_link {
     type: count
-    html: <a hhref = "google.com">{{rendered_value}}</a> ;;
+    drill_fields: [detail*]
+    html: <a href='#drillmenu' target='_self'>doing custom html for special rendering{{rendered_value}}</a> ;;
   }
 
   parameter: item_to_add_up {
