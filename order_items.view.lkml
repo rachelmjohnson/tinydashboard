@@ -88,6 +88,10 @@ view: order_items {
     type: count
     drill_fields: [detail*]
   }
+  measure: count_with_custom_link {
+    type: count
+    html: <a hhref = "google.com">{{rendered_value}}</a> ;;
+  }
 
   parameter: item_to_add_up {
     type: unquoted
